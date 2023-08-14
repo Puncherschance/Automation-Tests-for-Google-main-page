@@ -12,8 +12,9 @@ def browser():
     #options.page_load_strategy = 'normal'
     #browser = webdriver.Chrome(options=options)
     browser = webdriver.Chrome()
+    browser.maximize_window()
     browser.set_page_load_timeout(30)  # Устанавливаем стандартный Page_Load_Timeout для каждого теста
-    browser.implicitly_wait(5)  # Задаем неявные ожидания
+    #browser.implicitly_wait(5)  # Отключено, т.к. используем явные ожидания
     link = "https://www.google.com/"
     browser.get(link)
     print(Fore.YELLOW + "Begin Test Case.")
