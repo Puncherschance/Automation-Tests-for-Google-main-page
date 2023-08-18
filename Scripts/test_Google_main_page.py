@@ -2,12 +2,12 @@ from selenium.webdriver.common.by import By
 import pytest
 from selenium.common.exceptions import NoSuchElementException, TimeoutException  # Для обработки NoSuchElementException, TimeoutException
 import time
-#  from colorama import Fore
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
 #  from selenium.webdriver.chrome.options import Options  # для работы с PageLoadStrategy
 #  from selenium.webdriver.common.keys import Keys
-
+#  from colorama import Fore
 
 class TestSearch:  # Проверяем работоспособность поиска по тексту
 
@@ -21,8 +21,10 @@ class TestSearch:  # Проверяем работоспособность по�
 
         search_field = WebDriverWait(browser, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "[type = 'search']")))
         search_field.send_keys(text)
+
         submit = WebDriverWait(browser, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.lJ9FBc > center > .gNO89b")))
         submit.click()
+
         browser.set_page_load_timeout(2)  # Необходимо обойти долгую загрузку страницы после поиска
         try:
             result_check()
@@ -68,13 +70,16 @@ class TestPictureSearch:  # Проверяем поиск по картинке
 class TestApplicationSearch:  # Проверяем фрейм с приложениями
 
     @pytest.mark.smoke
-    def test_application_search(self, browser):
+    @pytest.mark.parametrize("app_selector", ("div:nth-child(1) > ul > li:nth-child(3) div span", "div:nth-child(1) > ul > li:nth-child(12) div span"))
+    def test_application_search(self, browser, app_selector):
 
         applications = WebDriverWait(browser, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div a svg.gb_j")))
         applications.click()
+
         frame_app = WebDriverWait(browser, 5).until(EC.element_to_be_clickable((By.TAG_NAME, "iframe")))
         browser.switch_to.frame(frame_app)
-        app_maps = WebDriverWait(browser, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div:nth-child(1) > ul > li:nth-child(3) div span")))
-        app_maps.click()
+
+        app_button = WebDriverWait(browser, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, app_selector)))
+        app_button.click()
 
 
