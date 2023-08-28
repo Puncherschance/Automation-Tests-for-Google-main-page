@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-class MainPageLocators:
+class Locators:
     TEXT_SEARCH_RESULT = (By.CSS_SELECTOR, "div h2 span")
     TEXT_SEARCH_FIELD = (By.CSS_SELECTOR, "[type = 'search']")
     SUBMIT_SEARCH = (By.CSS_SELECTOR, "div.lJ9FBc > center > .gNO89b")

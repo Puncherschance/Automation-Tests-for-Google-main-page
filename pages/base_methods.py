@@ -7,37 +7,41 @@ class BaseMethods():
     def __init__(self, browser):
         self.browser = browser
 
-    def send_text(self, browser, element, text):
-        text_search_field = WebDriverWait(browser, 5).until(EC.element_to_be_clickable(element))
+    def send_text(self, element, text):
+        text_search_field = WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(element))
         text_search_field.send_keys(text)
 
-    def click_element(self, browser, element):
-        element = WebDriverWait(browser, 5).until(EC.element_to_be_clickable(element))
+    def click_element(self, element):
+        element = WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(element))
         element.click()
 
-    def should_be_text(self, browser, locator, text):
+    def should_be_text(self, locator, text):
 
-        def result_check():
-            result = WebDriverWait(browser, 5).until(EC.element_to_be_clickable(locator))
-            assert result.text == text, f"\nExpected {result.text}, got {result}"
+        def assert_function():
+            result = WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(locator))
+            assert result.text == text, f"\nExpected {text}, got {result.text}"
 
-        browser.set_page_load_timeout(2)
+        self.browser.set_page_load_timeout(2)
         try:
-            result_check()
+            assert_function()
         except TimeoutException:
-            result_check()
+            assert_function()
         except NoSuchElementException:
             return False
 
         return True
 
-    def switch_tab(self, browser):
-        browser.switch_to.window(browser.window_handles[1])
+    def switch_tab(self):
+        self.browser.switch_to.window(self.browser.window_handles[1])
 
-    def select_frame_app(self, browser, frame, selector):
-        frame = WebDriverWait(browser, 5).until(EC.element_to_be_clickable(frame))
-        browser.switch_to.frame(frame)
-
-        button = WebDriverWait(browser, 5).until(EC.element_to_be_clickable(selector))
+    def select_frame_app(self, frame, locator):
+        frame = WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(frame))
+        self.browser.switch_to.frame(frame)
+        button = WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(locator))
         button.click()
+
+    def compare_url(self, url):
+        print(url)
+        print(self.browser.current_url)
+        assert url in self.browser.current_url, f"\nExpected {url} in {self.browser.current_url}"
 

@@ -1,18 +1,18 @@
-from pages.main_page_methods import MainPageMethods
-from pages.locators import MainPageLocators, GitLocators, BritannicaLocators
+from pages.main_page_methods import MainPage
+from pages.locators import Locators, GitLocators, BritannicaLocators
 import pytest
 
 
 class TestTextSearch:  # Проверяем работоспособность поиска по тексту
 
     @pytest.mark.smoke
-    @pytest.mark.parametrize('text', ('Python', 'Java', 'C++'))
-    def test_search_by_text(self, browser, text):
+    @pytest.mark.parametrize('search_text', ('Python', 'Java', 'C++'))
+    def test_search_by_text(self, browser, search_text):
 
-        page = MainPageMethods(browser)
-        page.send_text(browser, MainPageLocators.TEXT_SEARCH_FIELD, text)
-        page.click_element(browser, MainPageLocators.SUBMIT_SEARCH)
-        page.should_be_text(browser,MainPageLocators.TEXT_SEARCH_RESULT, text)
+        page = MainPage(browser)
+        page.make_search_by_text(search_text)
+        page.compare_text_search_result(search_text)
+
 
 class TestImageSearch:  # Проверяем работоспособность поиска по картинке
 
@@ -20,27 +20,27 @@ class TestImageSearch:  # Проверяем работоспособность 
     @pytest.mark.parametrize(("image", "locator"),
                              ((GitLocators.IMAGE_GIT, GitLocators.TEXT_GIT),
                               (BritannicaLocators.IMAGE_BRITANNICA, BritannicaLocators.TEXT_BRITANNICA)))
-    def test_search_by_picture(self, browser, image, locator):
+    def test_search_by_image(self, browser, image, locator):
 
-        page = MainPageMethods(browser)
-        page.click_element(browser, MainPageLocators.PICTURES_MENU)
-        page.send_text(browser, MainPageLocators.TEXT_SEARCH_FIELD, "Selenium")
-        page.click_element(browser, MainPageLocators.MAGNIFIER_ELEMENT)
-        page.click_element(browser, image)
-        page.click_element(browser, MainPageLocators.PICTURE_ZOOMED)
-        page.switch_tab(browser)
-        page.should_be_text(browser, locator, "selenium")
+        page = MainPage(browser)
+        page.open_pictures_menu()
+        page.make_search_by_image(text:="selenium")
+        page.open_third_site(image)
+        page.compare_image_search_result(locator, text)
 
 
-class TestApplicationSearch:  # Проверяем фрейм с приложениями
+class TestOpenApplication:  # Проверяем фрейм с приложениями
 
     @pytest.mark.smoke
-    @pytest.mark.parametrize("selector", (MainPageLocators.APP_MAPS, MainPageLocators.APP_CALENDAR))
-    def test_application_search(self, browser, selector):
+    @pytest.mark.parametrize(("locator", "url"),
+                             ((Locators.APP_MAPS, "https://www.google.com/maps"),
+                              (Locators.APP_CALENDAR, "https://workspace.google.com/products/calendar/")))
+    def test_application_search(self, browser, locator, url):
 
-        page = MainPageMethods(browser)
-        page.click_element(browser, MainPageLocators.APPLICATIONS)
-        page.select_frame_app(browser, MainPageLocators.APPLICATIONS_FRAME, selector)
+        page = MainPage(browser)
+        page.open_app_maps(locator)
+        page.check_page_is_correct(url)
+
 
 
 
