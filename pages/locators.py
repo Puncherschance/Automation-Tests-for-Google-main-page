@@ -7,13 +7,24 @@ class Locators:
     PICTURES_MENU = (By.CSS_SELECTOR, "a[aria-label*='Поиск картинок']")
     PICTURES_SEARCH_FIELD = (By.CSS_SELECTOR, "[type='search']")
     MAGNIFIER_ELEMENT = (By.CSS_SELECTOR, ".zgAlFc span svg")
-
-
     PICTURE_ZOOMED = (By.CSS_SELECTOR, "div a[role = 'link'] img[jsname='kn3ccd']")
     APPLICATIONS = (By.CSS_SELECTOR, "div a svg")
     APPLICATIONS_FRAME = (By.TAG_NAME, "iframe")
     APP_MAPS = (By.CSS_SELECTOR, "div:nth-child(1) > ul > li:nth-child(3) div span")
     APP_CALENDAR = (By.CSS_SELECTOR, "div:nth-child(1) > ul > li:nth-child(12) div span")
+    LOGIN_BUTTON = (By.CSS_SELECTOR, ".gb_Ad")
+    ENTER_EMAIL_FIELD = (By.CSS_SELECTOR, "[type = 'email']")
+    ENTER_PASSWORD_FIELD = (By.CSS_SELECTOR, "[type = 'password']")
+    SUBMIT_EMAIL_BUTTON = (By.CSS_SELECTOR, "#identifierNext span")
+    SUBMIT_PASSWORD_BUTTON = (By.CSS_SELECTOR, "#passwordNext > div > button > span")
+
+
+
+class MapsLocators:
+    MAPS_SEARCH_FIELD = (By.CSS_SELECTOR, "#XmI62e div label")
+
+class CalendarLocators:
+    CALENDAR_HEADER = (By.CSS_SELECTOR, "div.gb_hd.gb_7c.gb_8c span span")
 
 class GitLocators:
     IMAGE_GIT = (By.CSS_SELECTOR, '[alt*=GitHub]')

@@ -8,12 +8,10 @@ class BaseMethods():
         self.browser = browser
 
     def send_text(self, element, text):
-        text_search_field = WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(element))
-        text_search_field.send_keys(text)
+        WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(element)).send_keys(text)
 
     def click_element(self, element):
-        element = WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(element))
-        element.click()
+        WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(element)).click()
 
     def should_be_text(self, locator, text):
 
@@ -35,13 +33,9 @@ class BaseMethods():
         self.browser.switch_to.window(self.browser.window_handles[1])
 
     def select_frame_app(self, frame, locator):
-        frame = WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(frame))
-        self.browser.switch_to.frame(frame)
-        button = WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(locator))
-        button.click()
+        self.browser.switch_to.frame(WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(frame)))
+        WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(locator)).click()
 
     def compare_url(self, url):
-        print(url)
-        print(self.browser.current_url)
         assert url in self.browser.current_url, f"\nExpected {url} in {self.browser.current_url}"
 

@@ -1,9 +1,10 @@
 from pages.main_page_methods import MainPage
-from pages.locators import Locators, GitLocators, BritannicaLocators
+from pages.locators import *
 import pytest
+import time
 
 
-class TestTextSearch:  # Проверяем работоспособность поиска по тексту
+class TestTextSearch:  # Поиск по тексту выводит корректный результат
 
     @pytest.mark.smoke
     @pytest.mark.parametrize('search_text', ('Python', 'Java', 'C++'))
@@ -14,7 +15,7 @@ class TestTextSearch:  # Проверяем работоспособность �
         page.compare_text_search_result(search_text)
 
 
-class TestImageSearch:  # Проверяем работоспособность поиска по картинке
+class TestImageSearch:  # Используя поиск по изображениям можно перейти на сторонний сайт
 
     @pytest.mark.smoke
     @pytest.mark.parametrize(("image", "locator"),
@@ -29,17 +30,18 @@ class TestImageSearch:  # Проверяем работоспособность 
         page.compare_image_search_result(locator, text)
 
 
-class TestOpenApplication:  # Проверяем фрейм с приложениями
+class TestOpenApplication:  # Приложения фрейма должны корректно открываться
 
     @pytest.mark.smoke
-    @pytest.mark.parametrize(("locator", "url"),
-                             ((Locators.APP_MAPS, "https://www.google.com/maps"),
-                              (Locators.APP_CALENDAR, "https://workspace.google.com/products/calendar/")))
-    def test_application_search(self, browser, locator, url):
+    @pytest.mark.parametrize(("button_locator", "url", "text_locator", "text"),
+                             ((Locators.APP_MAPS, "https://www.google.com/maps", MapsLocators.MAPS_SEARCH_FIELD, "Поиск на Google Картах"),
+                              (Locators.APP_CALENDAR, "https://calendar.google.com/calendar/", CalendarLocators.CALENDAR_HEADER, "Календарь")))
+    def test_application_search(self, browser, button_locator, url, text_locator, text):
 
         page = MainPage(browser)
-        page.open_app_maps(locator)
-        page.check_page_is_correct(url)
+        page.open_app_maps(button_locator)
+        page.check_page_is_correct(url, text_locator, text)
+
 
 
 

@@ -1,5 +1,7 @@
 from pages.base_methods import BaseMethods
-from pages.locators import Locators
+from pages.locators import *
+from pages.env import *
+import time
 
 class MainPage(BaseMethods):
 
@@ -29,5 +31,13 @@ class MainPage(BaseMethods):
         self.click_element(Locators.APPLICATIONS)
         self.select_frame_app(Locators.APPLICATIONS_FRAME, locator)
 
-    def check_page_is_correct(self, url):
+    def check_page_is_correct(self, url, text_locator, text):
         self.compare_url(url)
+        self.should_be_text(text_locator, text)
+
+    def login_as_test_user(self):
+        self.click_element(Locators.LOGIN_BUTTON)
+        self.send_text(Locators.ENTER_EMAIL_FIELD, Environment.USER_EMAIL)
+        self.click_element(Locators.SUBMIT_EMAIL_BUTTON)
+        self.send_text(Locators.ENTER_PASSWORD_FIELD, Environment.USER_PASSWORD)
+        self.click_element(Locators.SUBMIT_PASSWORD_BUTTON)

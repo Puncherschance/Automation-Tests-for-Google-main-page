@@ -5,6 +5,7 @@ import time
 from selenium.webdriver.firefox.options import Options as OptionsFirefox
 from selenium_stealth import stealth
 from pages.env import Environment
+from pages.main_page_methods import MainPage
 
 def pytest_addoption(parser):
     parser.addoption("--language", action="store", default="ru", help="Choose language!")
@@ -29,11 +30,14 @@ def browser(request):
     else:
         raise pytest.exit("\n--browser_name should be chrome or firefox!")
 
-    # options.page_load_strategy = "'"normal"
-    # browser.implicitly_wait(5)  # Отключено, так как используем явные ожидания
+    # options.page_load_strategy = "normal"
+    # browser.implicitly_wait(5)
     browser.set_page_load_timeout(30)  # Устанавливаем стандартный Page_Load_Timeout для каждого теста
     browser.maximize_window()
     browser.get(Environment.MAIN_PAGE)
+    page = MainPage(browser)
+    page.login_as_test_user()
+
     print("Begin Test Case.")
     yield browser
     time.sleep(2)
