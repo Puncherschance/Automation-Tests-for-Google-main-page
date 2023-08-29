@@ -35,9 +35,10 @@ class MainPage(BaseMethods):
         self.compare_url(url)
         self.should_be_text(text_locator, text)
 
-    def login_as_test_user(self):
-        self.click_element(Locators.LOGIN_BUTTON)
-        self.send_text(Locators.ENTER_EMAIL_FIELD, Environment.USER_EMAIL)
-        self.click_element(Locators.SUBMIT_EMAIL_BUTTON)
-        self.send_text(Locators.ENTER_PASSWORD_FIELD, Environment.USER_PASSWORD)
-        self.click_element(Locators.SUBMIT_PASSWORD_BUTTON)
+    #def login_as_test_user(self):
+    #    self.click_element(Locators.LOGIN_BUTTON)
+    #    self.send_text(Locators.ENTER_EMAIL_FIELD, Environment.USER_EMAIL)
+    #    self.click_element(Locators.SUBMIT_EMAIL_BUTTON)
+    #    self.send_text(Locators.ENTER_PASSWORD_FIELD, Environment.USER_PASSWORD)
+    #    self.click_element(Locators.SUBMIT_PASSWORD_BUTTON)
+

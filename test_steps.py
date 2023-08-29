@@ -35,7 +35,9 @@ class TestOpenApplication:  # Приложения фрейма должны к�
     @pytest.mark.smoke
     @pytest.mark.parametrize(("button_locator", "url", "text_locator", "text"),
                              ((Locators.APP_MAPS, "https://www.google.com/maps", MapsLocators.MAPS_SEARCH_FIELD, "Поиск на Google Картах"),
-                              (Locators.APP_CALENDAR, "https://calendar.google.com/calendar/", CalendarLocators.CALENDAR_HEADER, "Календарь")))
+                              (Locators.APP_CULTURE, "https://artsandculture.google.com/", CultureLocators.CULTURE_HEADER,
+                               "What do you want to explore?"),
+                              (Locators.APP_CALENDAR, "https://workspace.google.com/products/calendar/", CalendarLocators.CALENDAR_HEADER, "Общедоступный онлайн-календарь")))
     def test_application_search(self, browser, button_locator, url, text_locator, text):
 
         page = MainPage(browser)
