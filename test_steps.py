@@ -41,7 +41,7 @@ class TestOpenApplication:  # Приложения фрейма должны к�
     def test_application_search(self, browser, button_locator, url, text_locator, text):
 
         page = MainPage(browser)
-        page.open_app_maps(button_locator)
+        page.open_app(button_locator)
         page.check_page_is_correct(url, text_locator, text)
 
 

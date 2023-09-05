@@ -8,7 +8,7 @@ class Locators:
     PICTURES_SEARCH_FIELD = (By.CSS_SELECTOR, "[type='search']")
     MAGNIFIER_ELEMENT = (By.CSS_SELECTOR, ".zgAlFc span svg")
     PICTURE_ZOOMED = (By.CSS_SELECTOR, "div a[role = 'link'] img[jsname='kn3ccd']")
-    APPLICATIONS = (By.CSS_SELECTOR, "div a svg")
+    APPLICATIONS = (By.CSS_SELECTOR, "#gbwa div a")
     APPLICATIONS_FRAME = (By.TAG_NAME, "iframe")
     APP_MAPS = (By.CSS_SELECTOR, "div:nth-child(1) > ul > li:nth-child(3) div span")
     APP_CALENDAR = (By.CSS_SELECTOR, "div:nth-child(1) > ul > li:nth-child(12) div span")

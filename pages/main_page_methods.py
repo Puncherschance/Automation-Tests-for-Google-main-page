@@ -27,7 +27,7 @@ class MainPage(BaseMethods):
         self.click_element(Locators.PICTURE_ZOOMED)
         self.switch_tab()
 
-    def open_app_maps(self, locator):
+    def open_app(self, locator):
         self.click_element(Locators.APPLICATIONS)
         self.select_frame_app(Locators.APPLICATIONS_FRAME, locator)
 
