@@ -16,8 +16,9 @@ class MainPage(BaseMethods):
     def compare_text_search_result(self, text):
         self.should_be_text(Locators.TEXT_SEARCH_RESULT, text)
 
-    def compare_image_search_result(self, locator, text):
+    def compare_image_search_result(self, locator, text, url):
         self.should_be_text(locator, text)
+        self.should_be_url(url)
 
     def open_pictures_menu(self):
         self.click_element(Locators.PICTURES_MENU)
@@ -32,7 +33,7 @@ class MainPage(BaseMethods):
         self.select_frame_app(Locators.APPLICATIONS_FRAME, locator)
 
     def check_page_is_correct(self, url, text_locator, text):
-        self.compare_url(url)
+        self.should_be_url(url)
         self.should_be_text(text_locator, text)
 
     #def login_as_test_user(self):

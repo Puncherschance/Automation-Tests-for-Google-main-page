@@ -36,6 +36,6 @@ class BaseMethods():
         self.browser.switch_to.frame(WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(frame)))
         WebDriverWait(self.browser, 5).until(EC.element_to_be_clickable(locator)).click()
 
-    def compare_url(self, url):
+    def should_be_url(self, url):
         assert url in self.browser.current_url, f"\nExpected {url} in {self.browser.current_url}"
 
